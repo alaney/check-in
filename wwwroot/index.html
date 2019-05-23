@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Check In</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="app" class="container">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Welcome To Greg Machen Photography
+          </h1>
+          <h2 class="subtitle">
+            Choose your School
+          </h2>
+        </div>
+      </div>
+    </section>
+    <div class="tile is-parent is-vertical">
+      <school v-for="school in schools" v-bind:name="school" v-bind:key="school"></school>
+    </div>
+  </div>
+  <!-- <div id="app">
+    <ol>
+      <li v-for="student in students" 
+      v-bind:key="student.id">
+      {{ student.firstName }}
+    </li>
+  </ol>
+</div> -->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
