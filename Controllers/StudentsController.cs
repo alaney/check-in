@@ -14,17 +14,23 @@ namespace lindsey.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Student>> Get()
+        public ActionResult<IEnumerable<Student>> Get(string schoolName)
         {
-            return System.IO.File.ReadAllLines(@"c:\code\lindsey\MOCK_DATA.csv").Skip(1).Select(l => Student.FromCsv(l)).ToList();
+            return System.IO.File.ReadAllLines(@"c:\code\lindsey\MOCK_DATA.csv").Skip(1).Select(l => Student.FromCsv(l)).Where(s => s.School == schoolName).ToList();
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Student> Get(int id)
+        {
+            return System.IO.File.ReadAllLines(@"c:\code\lindsey\MOCK_DATA.csv").Skip(1).Select(l => Student.FromCsv(l)).FirstOrDefault(s => s.ClientId == id);
         }
 
         // GET api/values/5
         [HttpGet("schools")]
-        public ActionResult<IEnumerable<string>> Get(int id)
+        public ActionResult<IEnumerable<string>> Get()
         {
             var students = System.IO.File.ReadAllLines(@"c:\code\lindsey\MOCK_DATA.csv").Skip(1).Select(l => Student.FromCsv(l)).ToList();
-            return students.Select(s => s.school).Distinct().OrderBy(a => a).ToList();
+            return students.Select(s => s.School).Distinct().OrderBy(a => a).ToList();
         }
 
         // POST api/values

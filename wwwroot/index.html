@@ -24,18 +24,27 @@
         </div>
       </div>
     </section>
-    <div class="tile is-parent is-vertical">
-      <school v-for="school in schools" v-bind:name="school" v-bind:key="school"></school>
+    <div v-if="step==0" class="tile is-ancestor">
+      <div class="tile is-parent">
+          <div v-on:click="onSchoolClick(school)" v-for="school in schools" class="tile box is-child notification is-primary">
+            <p class="title">
+              {{school}}
+            </p>
+          </div>
+      </div>
+    </div>
+    <div v-if="step==1">
+      <input v-model="search" />
+      <ul>
+        <li v-on:click="onStudentClick(student)" v-for="student in filteredStudents">{{student.firstName}}</li>
+      </ul>
+    </div>
+    <div v-if="step==2">
+      <div>
+        {{student.email}}
+      </div>
     </div>
   </div>
-  <!-- <div id="app">
-    <ol>
-      <li v-for="student in students" 
-      v-bind:key="student.id">
-      {{ student.firstName }}
-    </li>
-  </ol>
-</div> -->
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="app.js"></script>

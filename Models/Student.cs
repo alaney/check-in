@@ -4,29 +4,29 @@ namespace lindsey.Models
 {
     public class Student 
     {
-      public string firstName {get; set;}
-      public string lastName {get; set;}
-      public string clientId {get; set;}
-      public string school {get; set;}
-      public string email {get; set;}
-      public string email2 {get; set;}
-      public string email3 {get; set;}
-      public string email4 {get; set;}
-      public string phone {get; set;}
+      public string FirstName {get; set;}
+      public string LastName {get; set;}
+      public int ClientId {get; set;}
+      public string School {get; set;}
+      public string Email {get; set;}
+      public string Email2 {get; set;}
+      public string Email3 {get; set;}
+      public string Email4 {get; set;}
+      public string Phone {get; set;}
 
       public static Student FromCsv(string csvLine)
         {
             string[] values = csvLine.Split(',');
             Student studentValues = new Student();
-            studentValues.clientId = values[0];
-            studentValues.firstName = values[1];
-            studentValues.lastName = values[2];
-            studentValues.email = values[3];
-            studentValues.email2 = values[4];
-            studentValues.email3 = values[5];
-            studentValues.email4 = values[6];
-            studentValues.phone = values[7];
-            studentValues.school = values[8];
+            studentValues.ClientId = Convert.ToInt32(values[0]);
+            studentValues.FirstName = values[1];
+            studentValues.LastName = values[2];
+            studentValues.Email = values[3];
+            studentValues.Email2 = values[4];
+            studentValues.Email3 = values[5];
+            studentValues.Email4 = values[6];
+            studentValues.Phone = values[7];
+            studentValues.School = values[8];
             return studentValues;
         }
     }
