@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Check In</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <link rel="stylesheet" href="libs/bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -41,12 +41,16 @@
     </div>
     <div v-if="step==2">
       <div>
-        {{student.email}}
+        <input v-model="student.email">
+        <input v-model="student.email2">
+        <input v-model="student.email3">
+        <input v-model="student.email4">
+        <button v-on:click="onStudentSave" >Save</button>
       </div>
     </div>
   </div>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+  <script src="libs/vue.js"></script>
   <script src="app.js"></script>
 </body>
 

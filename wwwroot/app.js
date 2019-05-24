@@ -17,6 +17,9 @@ window.onload = function () {
       },
       onStudentClick: function(student) {
         getStudent(student.clientId)
+      },
+      onStudentSave: function() {
+        patchStudent(this.student)
       }
     },
     computed: {
@@ -56,8 +59,18 @@ function getStudent(id) {
   fetch(studentsRequest).then(r => {
     return r.json();
   }).then(r => {
+    app.student = null;
     app.student = r;
     app.step += 1;
+  });
+}
+
+function patchStudent(student) {
+  var headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  var studentsRequest = new Request(`./api/students/${student.clientId}`, { method: "PATCH", body: JSON.stringify(student), headers });
+  fetch(studentsRequest).then(r => {
+    app.step = 0;
   });
 }
 

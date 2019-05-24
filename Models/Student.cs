@@ -29,5 +29,20 @@ namespace lindsey.Models
             studentValues.School = values[8];
             return studentValues;
         }
+
+        public static string ToCsv(Student student)
+        {
+            var studentCsv = "";
+            studentCsv += $"{student.ClientId},";
+            studentCsv += $"{student.FirstName},";
+            studentCsv += $"{student.LastName},";
+            studentCsv += $"{student.Email},";
+            studentCsv += $"{student.Email2},";
+            studentCsv += $"{student.Email3},";
+            studentCsv += $"{student.Email4},";
+            studentCsv += $"{student.Phone},";
+            studentCsv += $"{student.School}";
+            return studentCsv;
+        }
     }
 }
