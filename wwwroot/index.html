@@ -16,36 +16,55 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Welcome To Greg Machen Photography
+            {{primary}}
           </h1>
           <h2 class="subtitle">
-            Choose your School
+            {{secondary}}
           </h2>
         </div>
       </div>
     </section>
-    <div v-if="step==0" class="tile is-ancestor">
-      <div class="tile is-parent">
-          <div v-on:click="onSchoolClick(school)" v-for="school in schools" class="tile box is-child notification is-primary">
-            <p class="title">
-              {{school}}
-            </p>
+    <div class="wizard">
+      <div v-if="step==0" class="school-container">
+        <div v-on:click="onSchoolClick(school)" v-for="school in schools" class="school-tile">
+          <div class="school-title">
+            {{school}}
           </div>
+        </div>
       </div>
-    </div>
-    <div v-if="step==1">
-      <input v-model="search" />
-      <ul>
-        <li v-on:click="onStudentClick(student)" v-for="student in filteredStudents">{{student.firstName}}</li>
-      </ul>
-    </div>
-    <div v-if="step==2">
-      <div>
-        <input v-model="student.email">
-        <input v-model="student.email2">
-        <input v-model="student.email3">
-        <input v-model="student.email4">
-        <button v-on:click="onStudentSave" >Save</button>
+      <div v-if="step==1" class="student-search-container">
+        <input v-model="search" class="search" />
+        <div class="student-list">
+          <ul class="">
+            <li class="student-list-item" v-on:click="onStudentClick(student)" v-for="student in filteredStudents">
+              {{student.firstName + " " + student.lastName}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div v-if="step==2" class="student-info-container">
+        <div class="phone">
+          <h2>Enter a phone number</h2>
+          <input class="search" v-model="student.phone">
+        </div>
+        <div class="emails">
+          <h2>Enter at least two email addresses</h2>
+          <input class="search email" v-model="student.email">
+          <input class="search email" v-model="student.email2">
+          <input class="search email" v-model="student.email3">
+          <input class="search email" v-model="student.email4">
+        </div>
+        <div>
+          <button v-on:click="onStudentSave">Save</button>
+        </div>
+      </div>
+      <div v-if="step ==3">
+        <div>
+          Thanks blah blah blah
+        </div>
+        <div>
+
+        </div>
       </div>
     </div>
   </div>
