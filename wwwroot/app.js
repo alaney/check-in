@@ -3,7 +3,7 @@ var app
 var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
 var info = "Please enter your phone number and at least 2 email addresses"
-window.onload = function() {
+window.onload = function () {
   app = new Vue({
     el: "#app",
     data: {
@@ -16,13 +16,13 @@ window.onload = function() {
       secondary: chooseSchool
     },
     methods: {
-      onSchoolClick: function(name) {
+      onSchoolClick: function (name) {
         getStudents(name)
       },
-      onStudentClick: function(student) {
+      onStudentClick: function (student) {
         getStudent(student.clientId)
       },
-      onStudentSave: function() {
+      onStudentSave: function () {
         patchStudent(this.student)
       }
     },
@@ -88,9 +88,13 @@ function patchStudent(student) {
   })
   fetch(studentsRequest).then(r => {
     app.step += 1
-    setTimeout(function() {
-      app.secondary = chooseSchool
-      app.step = 0
+    setTimeout(function () {
+      app.students = [];
+      app.step = 0;
+      app.search = "";
+      app.student = null;
+      app.primary = "";
+      app.secondary = chooseSchool;
     }, 3000)
   })
 }
