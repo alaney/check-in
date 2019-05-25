@@ -1,6 +1,5 @@
 var schoolsRequest = new Request("./api/students/schools")
 var app
-var welcome = "Welcome to Greg Machen Photography"
 var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
 var info = "Please enter your phone number and at least 2 email addresses"
@@ -13,7 +12,7 @@ window.onload = function() {
       step: 0,
       search: "",
       student: null,
-      primary: welcome,
+      primary: "",
       secondary: chooseSchool
     },
     methods: {
@@ -90,12 +89,15 @@ function patchStudent(student) {
   fetch(studentsRequest).then(r => {
     app.step += 1
     setTimeout(function() {
-      app.primary = welcome
       app.secondary = chooseSchool
       app.step = 0
     }, 3000)
   })
 }
+
+Vue.component("welcome", {
+  template: '<h1 class="title">Welcome to <span style="font-family: Monotype Corsiva; font-size: 2.5rem;" >Greg Machen Photography</span></h1>'
+})
 
 Vue.component("school", {
   props: ["name"],

@@ -11,11 +11,14 @@
 </head>
 
 <body>
-  <div id="app" class="container">
+  <div id="app" class="container has-text-centered">
     <section class="hero">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
+          <div v-if="step == 0">
+            <welcome />
+          </div>
+          <h1 class="title" v-if="step > 0">
             {{primary}}
           </h1>
           <h2 class="subtitle">
@@ -33,7 +36,7 @@
         </div>
       </div>
       <div v-if="step==1" class="student-search-container">
-        <input v-model="search" class="search" />
+        <input v-model="search" class="input" placeholder="Enter your name" />
         <div class="student-list">
           <ul class="">
             <li class="student-list-item" v-on:click="onStudentClick(student)" v-for="student in filteredStudents">
@@ -45,17 +48,17 @@
       <div v-if="step==2" class="student-info-container">
         <div class="phone">
           <h2>Enter a phone number</h2>
-          <input class="search" v-model="student.phone">
+          <input class="input" v-model="student.phone">
         </div>
         <div class="emails">
           <h2>Enter at least two email addresses</h2>
-          <input class="search email" v-model="student.email">
-          <input class="search email" v-model="student.email2">
-          <input class="search email" v-model="student.email3">
-          <input class="search email" v-model="student.email4">
+          <input class="input email" v-model="student.email">
+          <input class="input email" v-model="student.email2">
+          <input class="input email" v-model="student.email3">
+          <input class="input email" v-model="student.email4">
         </div>
         <div>
-          <button v-on:click="onStudentSave">Save</button>
+          <a v-on:click="onStudentSave" class="button is-primary is-large">Save and Submit</a>
         </div>
       </div>
       <div v-if="step ==3">
@@ -63,7 +66,6 @@
           Thanks blah blah blah
         </div>
         <div>
-
         </div>
       </div>
     </div>
