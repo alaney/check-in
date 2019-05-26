@@ -52,13 +52,19 @@
         </div>
         <div class="emails">
           <h2>Enter at least two email addresses</h2>
-          <input class="input email" v-model="student.email">
-          <input class="input email" v-model="student.email2">
-          <input class="input email" v-model="student.email3">
-          <input class="input email" v-model="student.email4">
+          <input class="input email" v-model="student.emails[0]">
+          <input class="input email" v-model="student.emails[1]">
+          <input class="input email" v-model="student.emails[2]">
+          <input class="input email" v-model="student.emails[3]">
         </div>
         <div>
           <a v-on:click="onStudentSave" class="button is-primary is-large">Save and Submit</a>
+        </div>
+        <div v-if="showEmailWarning" class="notification is-warning">
+          Please enter at least 2 email addresses :)
+        </div>
+        <div v-if="showPhoneWarning" class="notification is-warning">
+          Please enter a phone number :)
         </div>
       </div>
       <div v-if="step ==3">
@@ -70,7 +76,6 @@
       </div>
     </div>
   </div>
-  <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
   <script src="libs/vue.js"></script>
   <script src="app.js"></script>
 </body>

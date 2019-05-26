@@ -3,10 +3,13 @@ var app
 var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
 var info = "Please enter your phone number and at least 2 email addresses"
+
 window.onload = function () {
   app = new Vue({
     el: "#app",
     data: {
+      showEmailWarning: false,
+      showPhoneWarning: false,
       students: [],
       schools: [],
       step: 0,
@@ -72,6 +75,7 @@ function getStudent(id) {
       return r.json()
     })
     .then(r => {
+      app.primary = `${r.firstName} ${r.lastName}`
       app.student = null
       app.student = r
       app.step += 1
@@ -79,6 +83,23 @@ function getStudent(id) {
 }
 
 function patchStudent(student) {
+  // check for at least two emails
+  if (app.student.emails.filter(e => !!e).length < 2) {
+    app.showEmailWarning = true;
+    setTimeout(function () {
+      app.showEmailWarning = false;
+    }, 3000);
+    return;
+  }
+
+  if (!app.student.phone) {
+    app.showPhoneWarning = true;
+    setTimeout(function () {
+      app.showPhoneWarning = false;
+    }, 3000);
+    return;
+  }
+
   var headers = new Headers()
   headers.append("Content-Type", "application/json")
   var studentsRequest = new Request(`./api/students/${student.clientId}`, {
@@ -88,6 +109,8 @@ function patchStudent(student) {
   })
   fetch(studentsRequest).then(r => {
     app.step += 1
+    app.primary = "Thank You!"
+    app.secondary = ""
     setTimeout(function () {
       app.students = [];
       app.step = 0;

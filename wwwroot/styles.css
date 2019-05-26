@@ -12,6 +12,11 @@ html {
   font-family: Monotype Corsiva;
 }
 
+.notification {
+  width: 20rem;
+  margin-top: 1rem;
+}
+
 /* Step 0 */
 
 .school-container {
@@ -62,8 +67,6 @@ html {
   padding: 0.5rem;
   margin: 0.5rem;
 }
-
-
 
 /* Step 2 */
 

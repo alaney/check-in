@@ -33,10 +33,10 @@ namespace lindsey.Controllers
             var header = file.First();
             var students = file.Skip(1).Select(l => Student.FromCsv(l)).ToList();
             var studentLine = students.FirstOrDefault(s => s.ClientId == id);
-            studentLine.Email = patchedStudent.Email;
-            studentLine.Email2 = patchedStudent.Email2;
-            studentLine.Email3 = patchedStudent.Email3;
-            studentLine.Email4 = patchedStudent.Email4;
+            studentLine.Emails[0] = patchedStudent.Emails[0];
+            studentLine.Emails[1] = patchedStudent.Emails[1];
+            studentLine.Emails[2] = patchedStudent.Emails[2];
+            studentLine.Emails[3] = patchedStudent.Emails[3];
             studentLine.Phone = patchedStudent.Phone;
             file = new List<string>();
             file.Add(header);
