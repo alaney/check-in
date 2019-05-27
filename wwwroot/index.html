@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Check In</title>
   <link rel="stylesheet" href="libs/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Overlock&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -72,18 +73,23 @@
       <div v-if="showPhoneWarning" class="notification is-warning">
         Please enter a phone number :)
       </div>
-    </div>
-    <div v-if="step ==3">
-      <div>
-        Thanks blah blah blah
+      <div v-if="step ==3" class="step-3">
+        <div class="thanks">
+          <div>
+            <p> You're all signed in!</p>
+            <p> Please see the receptionist to pay your session fee.</p>
+          </div>
+        </div>
+        <div>
+          <h1 class="title"><span style="font-family: Monotype Corsiva; font-size: 2.5rem;">Greg Machen
+              Photography</span>
+          </h1>
+        </div>
       </div>
-      <div>
-      </div>
     </div>
-  </div>
-  </div>
-  <script src="libs/vue.js"></script>
-  <script src="app.js"></script>
+
+    <script src="libs/vue.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>

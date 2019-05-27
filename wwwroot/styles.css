@@ -1,5 +1,10 @@
 html {
   overflow: hidden;
+  font-family: 'Overlock', cursive;
+}
+
+body {
+  font-family: 'Overlock', cursive;
 }
 
 .wizard {
@@ -91,4 +96,25 @@ html {
 
 h2 {
   margin: 0.5rem;
+}
+
+/* Step 3 */
+
+.step-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 10.0625rem);
+}
+
+.thanks {
+ 
+  width: 30rem;
+  height: 15rem;
+  border-radius: 1rem;
+  color: white;
+  background-color: cadetblue;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
 }
