@@ -4,6 +4,8 @@ var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
 var info = "Please enter your phone number and at least 2 email addresses"
 
+function doNothing() { }
+
 window.onload = function () {
   app = new Vue({
     el: "#app",
@@ -83,7 +85,24 @@ function getStudent(id) {
 }
 
 function patchStudent(student) {
-  // check for at least two emails
+  // input validation
+  var inputs = document.getElementsByTagName("input");
+  var anyInvalid = false;
+  for (let i = 0; i < inputs.length; i++) {
+    const element = inputs[i];
+    if (element.validationMessage) {
+      element.classList.add("is-danger");
+      anyInvalid = true;
+    } else {
+      element.classList.remove("is-danger");
+    }
+  }
+
+  if (anyInvalid) {
+    return;
+  }
+
+  // check for at least two emails.. I don't think this will be used...
   if (app.student.emails.filter(e => !!e).length < 2) {
     app.showEmailWarning = true;
     setTimeout(function () {
@@ -92,6 +111,7 @@ function patchStudent(student) {
     return;
   }
 
+  // or this :(
   if (!app.student.phone) {
     app.showPhoneWarning = true;
     setTimeout(function () {
@@ -119,7 +139,14 @@ function patchStudent(student) {
       app.primary = "";
       app.secondary = chooseSchool;
     }, 3000)
+    return r.json();
+  }).then(a => {
+    console.error(a);
+    return;
   })
+    .catch(e => {
+      console.error(e);
+    })
 }
 
 Vue.component("welcome", {

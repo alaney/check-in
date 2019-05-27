@@ -46,35 +46,41 @@
         </div>
       </div>
       <div v-if="step==2" class="student-info-container">
-        <div class="phone">
-          <h2>Enter a phone number</h2>
-          <input class="input" v-model="student.phone">
-        </div>
-        <div class="emails">
-          <h2>Enter at least two email addresses</h2>
-          <input class="input email" v-model="student.emails[0]">
-          <input class="input email" v-model="student.emails[1]">
-          <input class="input email" v-model="student.emails[2]">
-          <input class="input email" v-model="student.emails[3]">
-        </div>
-        <div>
-          <a v-on:click="onStudentSave" class="button is-primary is-large">Save and Submit</a>
-        </div>
-        <div v-if="showEmailWarning" class="notification is-warning">
-          Please enter at least 2 email addresses :)
-        </div>
-        <div v-if="showPhoneWarning" class="notification is-warning">
-          Please enter a phone number :)
-        </div>
+        <form onSubmit="return false;">
+          <div class="phone">
+            <h2>Enter a phone number</h2>
+            <input class="input" v-model="student.phone" required>
+          </div>
+          <div class="emails">
+            <h2>Enter your email address</h2>
+            <input required type="email" class="input email" v-model="student.emails[0]">
+            <h2>Enter at least one parent's email address</h2>
+            <input required type="email" class="input email" v-model="student.emails[1]">
+            <input type="email" class="input email" v-model="student.emails[2]">
+            <input type="email" class="input email" v-model="student.emails[3]">
+          </div>
+          <div>
+            <input type="submit" v-on:click="onStudentSave" class="button is-primary is-large"
+              value="Save and Submit" />
+          </div>
+        </form>
       </div>
-      <div v-if="step ==3">
-        <div>
-          Thanks blah blah blah
-        </div>
-        <div>
-        </div>
+
+      <div v-if="showEmailWarning" class="notification is-warning">
+        Please enter at least 2 email addresses :)
+      </div>
+      <div v-if="showPhoneWarning" class="notification is-warning">
+        Please enter a phone number :)
       </div>
     </div>
+    <div v-if="step ==3">
+      <div>
+        Thanks blah blah blah
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
   </div>
   <script src="libs/vue.js"></script>
   <script src="app.js"></script>

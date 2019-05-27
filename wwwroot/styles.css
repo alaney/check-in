@@ -33,6 +33,7 @@ html {
   border-radius: 1rem;
   margin: 1rem;
   display: flex;
+  align-items: center;
 }
 
 .school-title {
@@ -40,8 +41,6 @@ html {
   color: white;
   font-size: 2rem;
   width: 100%;
-  text-align: center;
-  justify-content: center;
 }
 
 /* Step 1 */
@@ -76,7 +75,12 @@ html {
   width: 20rem;
 }
 
+.phone {
+  text-align: left;
+}
+
 .emails {
+  text-align: left;
   display: flex;
   flex-direction: column;
 }
