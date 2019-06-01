@@ -50,7 +50,7 @@
         <form onSubmit="return false;">
           <div class="phone">
             <h2>Enter a phone number</h2>
-            <input class="input" type="tel" v-model="student.phone1" required>
+            <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
           </div>
           <div class="emails">
             <h2>Enter your email address</h2>
@@ -90,6 +90,8 @@
   </div>
   <script src="libs/vue.js"></script>
   <script src="app.js"></script>
+  <script src="libs/cleave.min.js"></script>
+  <script src="libs/cleave-phone.us.js"></script>
 </body>
 
 </html>

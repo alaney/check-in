@@ -81,6 +81,11 @@ function getStudent(id) {
       app.student = null
       app.student = r
       app.step += 1
+    }).then(function () {
+      new Cleave('#phone1', {
+        phone: true,
+        phoneRegionCode: 'us'
+      });
     })
 }
 
