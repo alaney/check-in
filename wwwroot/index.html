@@ -50,8 +50,7 @@
         <form onSubmit="return false;">
           <div class="phone">
             <h2>Enter a phone number</h2>
-            <input class="input" type="tel" pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im"
-              v-model="student.phone" required>
+            <input class="input" type="tel" v-model="student.phone1" required>
           </div>
           <div class="emails">
             <h2>Enter your email address</h2>
@@ -88,9 +87,9 @@
         </div>
       </div>
     </div>
-
-    <script src="libs/vue.js"></script>
-    <script src="app.js"></script>
+  </div>
+  <script src="libs/vue.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>

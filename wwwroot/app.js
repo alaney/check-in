@@ -112,7 +112,7 @@ function patchStudent(student) {
   }
 
   // or this :(
-  if (!app.student.phone) {
+  if (!app.student.phone1) {
     app.showPhoneWarning = true;
     setTimeout(function () {
       app.showPhoneWarning = false;
@@ -139,10 +139,6 @@ function patchStudent(student) {
       app.primary = "";
       app.secondary = chooseSchool;
     }, 3000)
-    return r.json();
-  }).then(a => {
-    console.error(a);
-    return;
   })
     .catch(e => {
       console.error(e);

@@ -29,15 +29,18 @@ namespace lindsey.Controllers
         [HttpPatch("{id}")]
         public ActionResult Patch(int id, [FromBody]Student patchedStudent)
         {
+            var rand = new Random(patchedStudent.LastName.GetHashCode());
             var file = System.IO.File.ReadAllLines(Path).ToList();
             var header = file.First();
             var students = file.Skip(1).Select(l => Student.FromCsv(l)).ToList();
             var studentLine = students.FirstOrDefault(s => s.ClientId == id);
-            studentLine.Emails[0] = patchedStudent.Emails[0];
-            studentLine.Emails[1] = patchedStudent.Emails[1];
-            studentLine.Emails[2] = patchedStudent.Emails[2];
-            studentLine.Emails[3] = patchedStudent.Emails[3];
-            studentLine.Phone = patchedStudent.Phone;
+            studentLine.Emails = patchedStudent.Emails;
+            studentLine.ParentFirstName = patchedStudent.ParentFirstName;
+            studentLine.ParentLastName = patchedStudent.ParentLastName;
+            studentLine.Password = patchedStudent.LastName + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10);
+            studentLine.Permission = patchedStudent.Permission;
+            studentLine.Phone1 = patchedStudent.Phone1;
+            studentLine.Phone2 = patchedStudent.Phone2;
             file = new List<string>();
             file.Add(header);
             file.AddRange(students.Select(s => Student.ToCsv(s)));
