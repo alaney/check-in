@@ -41,6 +41,7 @@ namespace lindsey.Controllers
             studentLine.Permission = patchedStudent.Permission;
             studentLine.Phone1 = patchedStudent.Phone1;
             studentLine.Phone2 = patchedStudent.Phone2;
+            studentLine.CheckInDate = DateTime.Now.ToString();
             file = new List<string>();
             file.Add(header);
             file.AddRange(students.Select(s => Student.ToCsv(s)));

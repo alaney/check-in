@@ -19,6 +19,7 @@ namespace lindsey.Models
         public bool Permission { get; set; }
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
+        public string CheckInDate { get; set; }
 
         public static Student FromCsv(string csvLine)
         {
@@ -59,7 +60,8 @@ namespace lindsey.Models
             studentCsv += $"{student.Password},";
             studentCsv += $"{(student.Permission ? "Y" : "N")},";
             studentCsv += $"{student.Phone1},";
-            studentCsv += $"{student.Phone2}";
+            studentCsv += $"{student.Phone2},";
+            studentCsv += $"{student.CheckInDate}";
             return studentCsv;
         }
     }
