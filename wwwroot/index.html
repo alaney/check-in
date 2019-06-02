@@ -47,27 +47,29 @@
         </div>
       </div>
       <div v-if="step==2" class="student-info-container">
-        <form onSubmit="return false;">
-          <div class="phone">
-            <h2>Enter a phone number</h2>
-            <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
-          </div>
-          <div class="emails">
-            <h2>Enter your email address</h2>
-            <input required type="email" class="input email" v-model="student.emails[0]">
-            <h2>Enter at least one parent's email address</h2>
-            <input required type="email" class="input email" v-model="student.emails[1]">
-            <input type="email" class="input email" v-model="student.emails[2]">
-            <input type="email" class="input email" v-model="student.emails[3]">
-          </div>
-          <div class="emails">
-            <label class="checkbox">
-              <input type="checkbox" v-model="student.permission">
-              May we use your photo for promotional purposes?
-            </label>
-          </div>
+        <form onSubmit="return false;" class="step-2">
           <div>
-            <input type="submit" v-on:click="onStudentSave" class="button is-primary is-large"
+            <div class="phone">
+              <h2>Enter a phone number</h2>
+              <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
+            </div>
+            <div class="emails">
+              <h2>Enter your email address</h2>
+              <input required type="email" class="input email" v-model="student.emails[0]">
+              <h2>Enter at least one parent's email address</h2>
+              <input required type="email" class="input email" v-model="student.emails[1]">
+              <input type="email" class="input email" v-model="student.emails[2]">
+              <input type="email" class="input email" v-model="student.emails[3]">
+            </div>
+            <div class="emails">
+              <label class="checkbox">
+                <input type="checkbox" v-model="student.permission">
+                May we use your photo for promotional purposes?
+              </label>
+            </div>
+          </div>
+          <div style="margin: 1rem;">
+            <input type="submit" v-on:click="onStudentSave" class="is-fullwidth button is-primary is-large"
               value="Save and Submit" />
           </div>
         </form>

@@ -74,6 +74,13 @@ body {
 
 /* Step 2 */
 
+.step-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 10.5625rem);
+}
+
 .student-info-container {
   display: flex;
   flex-direction: column;
@@ -108,7 +115,6 @@ h2 {
 }
 
 .thanks {
- 
   width: 30rem;
   height: 15rem;
   border-radius: 1rem;
