@@ -49,12 +49,24 @@
       <div v-if="step==2" class="student-info-container">
         <form onSubmit="return false;" class="step-2">
           <div>
-            <div class="phone">
-              <h2>Enter a phone number</h2>
+            <div>
+              <h2>Parent/Guardian Name</h2>
+              <div class="parent-name">
+                <input required class="input" type="text" v-model="student.parentFirstName" placeholder="First Name" />
+                <input required class="input" style="margin-left: 1rem;" type="text" v-model="student.parentLastName"
+                  placeholder="Last Name" />
+              </div>
+            </div>
+            <div>
+              <h2>Parent/Guardian Phone</h2>
               <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
             </div>
+            <div>
+              <h2>Your phone number</h2>
+              <input id="phone2" class="input" type="tel" v-model="student.phone2" required>
+            </div>
             <div class="emails">
-              <h2>Enter your email address</h2>
+              <h2>Your email address</h2>
               <input required type="email" class="input email" v-model="student.emails[0]">
               <h2>Enter at least one parent's email address</h2>
               <input required type="email" class="input email" v-model="student.emails[1]">
@@ -64,7 +76,7 @@
             <div class="emails">
               <label class="checkbox">
                 <input type="checkbox" v-model="student.permission">
-                May we use your photo for promotional purposes?
+                I give Greg Machen Photography permission to use my photos for promotional purposes (not required)
               </label>
             </div>
           </div>

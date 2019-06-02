@@ -85,16 +85,16 @@ body {
   display: flex;
   flex-direction: column;
   width: 20rem;
-}
-
-.phone {
   text-align: left;
 }
 
 .emails {
-  text-align: left;
   display: flex;
   flex-direction: column;
+}
+
+.parent-name {
+  display: flex;
 }
 
 .email {

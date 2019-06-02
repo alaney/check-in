@@ -2,7 +2,7 @@ var schoolsRequest = new Request("./api/students/schools")
 var app
 var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
-var info = "Please enter your phone number and at least 2 email addresses"
+var info = "Please fill out the information below"
 
 function doNothing() { }
 
@@ -83,6 +83,11 @@ function getStudent(id) {
       app.step += 1
     }).then(function () {
       new Cleave('#phone1', {
+        phone: true,
+        phoneRegionCode: 'us'
+      });
+
+      new Cleave('#phone2', {
         phone: true,
         phoneRegionCode: 'us'
       });
