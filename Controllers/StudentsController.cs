@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using lindsey.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace lindsey.Controllers
 {
@@ -13,12 +14,14 @@ namespace lindsey.Controllers
   [ApiController]
   public class StudentsController : ControllerBase
   {
-
+    private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
     private readonly string _path = "";
+    private readonly IConfiguration config;
 
     public StudentsController(IConfiguration config)
     {
       _path = config["DataFilePath"];
+      this.config = config;
     }
 
     // GET api/values
@@ -59,10 +62,32 @@ namespace lindsey.Controllers
 
     // GET api/values/5
     [HttpGet("schools")]
-    public ActionResult<IEnumerable<string>> Get()
+    public ActionResult<IEnumerable<School>> Get()
     {
       var students = System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).ToList();
-      return students.Select(s => s.School).Distinct().OrderBy(a => a).ToList();
+      var schools = students.Select(s => s.School).Distinct().OrderBy(a => a).Select(s => new School { Name = s }).ToList();
+      var schoolSettings = new List<School>();
+      config.GetSection("SchoolSettings").Bind(schoolSettings);
+      schools.ForEach(s =>
+      {
+        var setting = schoolSettings.FirstOrDefault(set => set.Name.ToLower() == s.Name.ToLower());
+        if (setting != null)
+        {
+          s.Color = setting.Color;
+        }
+      });
+      return schools.OrderBy(s =>
+      {
+        int index = schoolSettings.FindIndex(set => set.Name.ToLower() == s.Name.ToLower());
+        if (index > -1)
+        {
+          return index;
+        }
+        else
+        {
+          return 100;
+        }
+      }).ToList();
     }
 
     // POST api/values

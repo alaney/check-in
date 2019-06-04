@@ -31,9 +31,10 @@
     </section>
     <div class="wizard">
       <div v-if="step==0" class="school-container">
-        <div v-on:click="onSchoolClick(school)" v-for="school in schools" class="school-tile">
+        <div v-for="school in schools" v-on:click="onSchoolClick(school.name)" class="school-tile"
+          v-bind:style="{backgroundColor: school.color}">
           <div class="school-title">
-            {{school}}
+            {{school.name}}
           </div>
         </div>
       </div>
@@ -102,7 +103,7 @@
           </div>
         </div>
         <div>
-          <div class="title" style="font-family: Monotype Corsiva; font-size: 2.5rem;">Greg Machen
+          <div class="title" style="font-family: Monotype Corsiva, Italianno, cursive; font-size: 2.5rem;">Greg Machen
             Photography
           </div>
         </div>
