@@ -28,7 +28,15 @@ namespace lindsey.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Student>> Get(string schoolName)
     {
-      return System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).Where(s => s.School == schoolName).OrderBy(s => s.LastName).ToList();
+      try
+      {
+        return System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).Where(s => s.School == schoolName).OrderBy(s => s.LastName).ToList();
+      }
+      catch (Exception ex)
+      {
+        _logger.Error(ex);
+        return StatusCode(500);
+      }
     }
 
     [HttpGet("{id}")]
@@ -64,30 +72,38 @@ namespace lindsey.Controllers
     [HttpGet("schools")]
     public ActionResult<IEnumerable<School>> Get()
     {
-      var students = System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).ToList();
-      var schools = students.Select(s => s.School).Distinct().OrderBy(a => a).Select(s => new School { Name = s }).ToList();
-      var schoolSettings = new List<School>();
-      config.GetSection("SchoolSettings").Bind(schoolSettings);
-      schools.ForEach(s =>
+      try
       {
-        var setting = schoolSettings.FirstOrDefault(set => set.Name.ToLower() == s.Name.ToLower());
-        if (setting != null)
+        var students = System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).ToList();
+        var schools = students.Select(s => s.School).Distinct().OrderBy(a => a).Select(s => new School { Name = s }).ToList();
+        var schoolSettings = new List<School>();
+        config.GetSection("SchoolSettings").Bind(schoolSettings);
+        schools.ForEach(s =>
         {
-          s.Color = setting.Color;
-        }
-      });
-      return schools.OrderBy(s =>
+          var setting = schoolSettings.FirstOrDefault(set => set.Name.ToLower() == s.Name.ToLower());
+          if (setting != null)
+          {
+            s.Color = setting.Color;
+          }
+        });
+        return schools.OrderBy(s =>
+        {
+          int index = schoolSettings.FindIndex(set => set.Name.ToLower() == s.Name.ToLower());
+          if (index > -1)
+          {
+            return index;
+          }
+          else
+          {
+            return 100;
+          }
+        }).ToList();
+      }
+      catch (Exception ex)
       {
-        int index = schoolSettings.FindIndex(set => set.Name.ToLower() == s.Name.ToLower());
-        if (index > -1)
-        {
-          return index;
-        }
-        else
-        {
-          return 100;
-        }
-      }).ToList();
+        _logger.Error(ex);
+        return StatusCode(500);
+      }
     }
 
     // POST api/values
