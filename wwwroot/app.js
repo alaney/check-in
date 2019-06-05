@@ -30,6 +30,14 @@ window.onload = function() {
       },
       onStudentSave: function() {
         patchStudent(this.student)
+      },
+      startOver: function() {
+        this.students = []
+        this.step = 0
+        this.search = ""
+        this.student = null
+        this.primary = ""
+        this.secondary = chooseSchool
       }
     },
     computed: {
@@ -67,12 +75,10 @@ function getStudents(schoolName) {
         app.students.push(s)
       })
       app.step += 1
-      pageTimeout()
     })
 }
 
 function getStudent(id) {
-  clearTimeout()
   app.secondary = info
   var studentsRequest = new Request(`./api/students/${id}`)
   fetch(studentsRequest)
@@ -95,12 +101,10 @@ function getStudent(id) {
         phone: true,
         phoneRegionCode: "us"
       })
-      pageTimeout()
     })
 }
 
 function patchStudent(student) {
-  clearTimeout()
   // input validation
   var inputs = document.getElementsByTagName("input")
   var anyInvalid = false
@@ -171,27 +175,3 @@ Vue.component("school", {
   props: ["name"],
   template: '<div class="tile box is-child notification is-primary"><p class="title">{{name}}</p></div>'
 })
-
-function pageTimeout() {
-  var time
-  document.onmousemove = resetTimer
-  document.onkeypress = resetTimer
-  resetTimer()
-  function resetTimer() {
-    clearTimeout(time)
-    time = setTimeout(function() {
-      app.students = []
-      app.step = 0
-      app.search = ""
-      app.student = null
-      app.primary = ""
-      app.secondary = chooseSchool
-      clearTimeout()
-    }, 20000)
-  }
-}
-
-function clearTimeout() {
-  document.onmousemove = undefined
-  document.onkeypress = undefined
-}

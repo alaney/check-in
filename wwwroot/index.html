@@ -16,10 +16,14 @@
   <div id="app" class="container has-text-centered">
     <section class="hero">
       <div class="hero-body">
+        <div v-if="step > 0 && step < 3" class="start-over ">
+          <button v-on:click="startOver" class="button is-info is-medium" style="z-index: 1;">Start Over</button>
+        </div>
         <div class="container is-fluid">
           <div v-if="step == 0">
             <welcome />
           </div>
+
           <h1 class="title" v-if="step > 0">
             {{primary}}
           </h1>
@@ -95,7 +99,7 @@
       <div v-if="showPhoneWarning" class="notification is-warning">
         Please enter a phone number :)
       </div>
-      <div v-if="step ==3" class="step-3">
+      <div v-if="step == 3" class="step-3">
         <div class="thanks">
           <div>
             <p> You're all signed in!</p>
