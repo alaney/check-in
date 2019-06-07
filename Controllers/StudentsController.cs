@@ -24,7 +24,6 @@ namespace lindsey.Controllers
       this.config = config;
     }
 
-    // GET api/values
     [HttpGet]
     public ActionResult<IEnumerable<Student>> Get(string schoolName)
     {
@@ -104,24 +103,6 @@ namespace lindsey.Controllers
         _logger.Error(ex);
         return StatusCode(500);
       }
-    }
-
-    // POST api/values
-    [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
-
-    // PUT api/values/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/values/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
     }
   }
 }
