@@ -32,7 +32,7 @@ namespace lindsey.Models
       studentValues.City = values[4];
       studentValues.State = values[5];
       studentValues.Zip = values[6];
-      studentValues.Emails = values[7].Split(";");
+      studentValues.Emails = values[7].Split("; ");
       studentValues.School = values[8];
       studentValues.ParentFirstName = values[9];
       studentValues.ParentLastName = values[10];
@@ -40,6 +40,7 @@ namespace lindsey.Models
       studentValues.Permission = values[12] == "Y" || values[12] == "y" ? true : false;
       studentValues.Phone1 = values[13];
       studentValues.Phone2 = values[14];
+      studentValues.CheckInDate = values[15];
       return studentValues;
     }
 
