@@ -4,9 +4,9 @@ var chooseSchool = "Choose your school"
 var findYourName = "Find and select your name"
 var info = "Please fill out the information below"
 
-function doNothing() {}
+function doNothing() { }
 
-window.onload = function() {
+window.onload = function () {
   app = new Vue({
     el: "#app",
     data: {
@@ -23,16 +23,16 @@ window.onload = function() {
       schoolSettings: []
     },
     methods: {
-      onSchoolClick: function(name) {
+      onSchoolClick: function (name) {
         getStudents(name)
       },
-      onStudentClick: function(student) {
+      onStudentClick: function (student) {
         getStudent(student.clientId)
       },
-      onStudentSave: function() {
+      onStudentSave: function () {
         patchStudent(this.student)
       },
-      startOver: function() {
+      startOver: function () {
         this.students = []
         this.step = 0
         this.search = ""
@@ -97,7 +97,7 @@ function getStudent(id) {
       app.student = r
       app.step += 1
     })
-    .then(function() {
+    .then(function () {
       new Cleave("#phone1", {
         phone: true,
         phoneRegionCode: "us"
@@ -111,7 +111,6 @@ function getStudent(id) {
 }
 
 function patchStudent(student) {
-  app.loading = true
 
   // input validation
   var inputs = document.getElementsByTagName("input")
@@ -133,7 +132,7 @@ function patchStudent(student) {
   // check for at least two emails.. I don't think this will be used...
   if (app.student.emails.filter(e => !!e).length < 2) {
     app.showEmailWarning = true
-    setTimeout(function() {
+    setTimeout(function () {
       app.showEmailWarning = false
     }, 3000)
     return
@@ -142,7 +141,7 @@ function patchStudent(student) {
   // or this :(
   if (!app.student.phone1) {
     app.showPhoneWarning = true
-    setTimeout(function() {
+    setTimeout(function () {
       app.showPhoneWarning = false
     }, 3000)
     return
@@ -155,13 +154,15 @@ function patchStudent(student) {
     body: JSON.stringify(student),
     headers
   })
+  app.loading = true
+
   fetch(studentsRequest)
     .then(r => {
       app.loading = false
       app.step += 1
       app.primary = "Thank You!"
       app.secondary = ""
-      setTimeout(function() {
+      setTimeout(function () {
         app.students = []
         app.step = 0
         app.search = ""

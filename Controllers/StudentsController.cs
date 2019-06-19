@@ -49,7 +49,7 @@ namespace lindsey.Controllers
     {
       try
       {
-        var rand = new Random(patchedStudent.LastName.GetHashCode());
+        var rand = new Random();
         var file = System.IO.File.ReadAllLines(_path).ToList();
         var header = file.First();
         var students = file.Skip(1).Select(l => Student.FromCsv(l)).ToList();
@@ -57,7 +57,16 @@ namespace lindsey.Controllers
         studentLine.Emails = patchedStudent.Emails.Select(e => e.Trim()).ToArray();
         studentLine.ParentFirstName = patchedStudent.ParentFirstName;
         studentLine.ParentLastName = patchedStudent.ParentLastName;
-        studentLine.Password = patchedStudent.LastName + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10);
+        if (string.IsNullOrWhiteSpace(studentLine.Password))
+        {
+          // get unique password
+          string pwd = patchedStudent.LastName + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10);
+          while (students.FirstOrDefault(s => s.Password == pwd) != null)
+          {
+            pwd = patchedStudent.LastName + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10);
+          }
+          studentLine.Password = pwd;
+        }
         studentLine.Permission = patchedStudent.Permission;
         studentLine.Phone1 = patchedStudent.Phone1;
         studentLine.Phone2 = patchedStudent.Phone2;
