@@ -10,6 +10,7 @@ window.onload = function() {
   app = new Vue({
     el: "#app",
     data: {
+      loading: true,
       showEmailWarning: false,
       showPhoneWarning: false,
       students: [],
@@ -54,6 +55,7 @@ window.onload = function() {
       return r.json()
     })
     .then(r => {
+      app.loading = false
       app.schools = []
       r.forEach(s => {
         app.schools.push(s)
@@ -62,14 +64,16 @@ window.onload = function() {
 }
 
 function getStudents(schoolName) {
-  app.primary = schoolName
-  app.secondary = findYourName
+  app.loading = true
   var studentsRequest = new Request(`./api/students?schoolName=${schoolName}`)
   fetch(studentsRequest)
     .then(r => {
       return r.json()
     })
     .then(r => {
+      app.loading = false
+      app.primary = schoolName
+      app.secondary = findYourName
       app.students = []
       r.forEach(s => {
         app.students.push(s)
@@ -79,13 +83,15 @@ function getStudents(schoolName) {
 }
 
 function getStudent(id) {
-  app.secondary = info
+  app.loading = true
   var studentsRequest = new Request(`./api/students/${id}`)
   fetch(studentsRequest)
     .then(r => {
       return r.json()
     })
     .then(r => {
+      app.loading = false
+      app.secondary = info
       app.primary = `${r.firstName} ${r.lastName}`
       app.student = null
       app.student = r
@@ -105,6 +111,8 @@ function getStudent(id) {
 }
 
 function patchStudent(student) {
+  app.loading = true
+
   // input validation
   var inputs = document.getElementsByTagName("input")
   var anyInvalid = false
@@ -149,6 +157,7 @@ function patchStudent(student) {
   })
   fetch(studentsRequest)
     .then(r => {
+      app.loading = false
       app.step += 1
       app.primary = "Thank You!"
       app.secondary = ""

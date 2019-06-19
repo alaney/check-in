@@ -9,113 +9,120 @@
   <link rel="stylesheet" href="libs/bulma.min.css">
   <link href="https://fonts.googleapis.com/css?family=Overlock&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Italianno&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles2.css">
+  <link rel="stylesheet" href="styles3.css">
+  <link rel="stylesheet" href="spinner.css">
 </head>
 
 <body>
-  <div id="app" class="container has-text-centered">
-    <section class="hero">
-      <div class="hero-body">
-        <div v-if="step > 0 && step < 3" class="start-over ">
-          <button v-on:click="startOver" class="button is-info is-medium" style="z-index: 1;">Start Over</button>
-        </div>
-        <div class="container is-fluid">
-          <div v-if="step == 0">
-            <welcome />
+  <div id="app">
+    <div class="blanket" v-if="loading == true">
+      <div class="spinner"></div>
+    </div>
+    <div class="container has-text-centered">
+      <section class="hero">
+        <div class="hero-body">
+          <div v-if="step > 0 && step < 3" class="start-over ">
+            <button v-on:click="startOver" class="button is-info is-medium" style="z-index: 1;">Start Over</button>
           </div>
+          <div class="container is-fluid">
+            <div v-if="step == 0">
+              <welcome />
+            </div>
 
-          <h1 class="title" v-if="step > 0">
-            {{primary}}
-          </h1>
-          <h2 class="subtitle">
-            {{secondary}}
-          </h2>
-        </div>
-      </div>
-    </section>
-    <div class="wizard">
-      <div v-if="step==0" class="school-container">
-        <div v-for="school in schools" v-on:click="onSchoolClick(school.name)" class="school-tile"
-          v-bind:style="{backgroundColor: school.color}">
-          <div class="school-title">
-            {{school.name}}
+            <h1 class="title" v-if="step > 0">
+              {{primary}}
+            </h1>
+            <h2 class="subtitle">
+              {{secondary}}
+            </h2>
           </div>
         </div>
-      </div>
-      <div v-if="step==1" class="student-search-container">
-        <input v-model="search" class="input" placeholder="Enter your name" />
-        <div class="student-list">
-          <ul class="">
-            <li class="student-list-item" v-on:click="onStudentClick(student)" v-for="student in filteredStudents">
-              {{student.firstName + " " + student.lastName}}
-            </li>
-          </ul>
+      </section>
+      <div class="wizard">
+        <div v-if="step==0" class="school-container">
+          <div v-for="school in schools" v-on:click="onSchoolClick(school.name)" class="school-tile"
+            v-bind:style="{backgroundColor: school.color}">
+            <div class="school-title">
+              {{school.name}}
+            </div>
+          </div>
         </div>
-      </div>
-      <div v-if="step==2" class="student-info-container">
-        <form onSubmit="return false;" class="step-2">
-          <div>
+        <div v-if="step==1" class="student-search-container">
+          <input v-model="search" class="input" placeholder="Enter your name" />
+          <div class="student-list">
+            <ul class="">
+              <li class="student-list-item" v-on:click="onStudentClick(student)" v-for="student in filteredStudents">
+                {{student.firstName + " " + student.lastName}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-if="step==2" class="student-info-container">
+          <form onSubmit="return false;" class="step-2">
             <div>
-              <h2>Parent/Guardian Name</h2>
-              <div class="parent-name">
-                <input required class="input" type="text" v-model="student.parentFirstName" placeholder="First Name" />
-                <input required class="input" style="margin-left: 1rem;" type="text" v-model="student.parentLastName"
-                  placeholder="Last Name" />
+              <div>
+                <h2>Parent/Guardian Name</h2>
+                <div class="parent-name">
+                  <input required class="input" type="text" v-model="student.parentFirstName"
+                    placeholder="First Name" />
+                  <input required class="input" style="margin-left: 1rem;" type="text" v-model="student.parentLastName"
+                    placeholder="Last Name" />
+                </div>
+              </div>
+              <div>
+                <h2>Parent/Guardian Phone</h2>
+                <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
+              </div>
+              <div>
+                <h2>Your phone number</h2>
+                <input id="phone2" class="input" type="tel" v-model="student.phone2" required>
+              </div>
+              <div class="emails">
+                <h2>Your email address</h2>
+                <input required type="email" class="input email" v-model="student.emails[0]">
+                <h2>Enter at least one parent's email address</h2>
+                <input required type="email" class="input email" v-model="student.emails[1]">
+                <input type="email" class="input email" v-model="student.emails[2]">
+                <input type="email" class="input email" v-model="student.emails[3]">
+              </div>
+              <div class="emails">
+                <label class="checkbox">
+                  <input type="checkbox" v-model="student.permission">
+                  I give Greg Machen Photography permission to use my photos for promotional purposes (not required)
+                </label>
               </div>
             </div>
-            <div>
-              <h2>Parent/Guardian Phone</h2>
-              <input id="phone1" class="input" type="tel" v-model="student.phone1" required>
+            <div style="margin: 1rem;">
+              <input type="submit" v-on:click="onStudentSave" class="is-fullwidth button is-primary is-large"
+                value="Save and Submit" />
             </div>
-            <div>
-              <h2>Your phone number</h2>
-              <input id="phone2" class="input" type="tel" v-model="student.phone2" required>
-            </div>
-            <div class="emails">
-              <h2>Your email address</h2>
-              <input required type="email" class="input email" v-model="student.emails[0]">
-              <h2>Enter at least one parent's email address</h2>
-              <input required type="email" class="input email" v-model="student.emails[1]">
-              <input type="email" class="input email" v-model="student.emails[2]">
-              <input type="email" class="input email" v-model="student.emails[3]">
-            </div>
-            <div class="emails">
-              <label class="checkbox">
-                <input type="checkbox" v-model="student.permission">
-                I give Greg Machen Photography permission to use my photos for promotional purposes (not required)
-              </label>
-            </div>
-          </div>
-          <div style="margin: 1rem;">
-            <input type="submit" v-on:click="onStudentSave" class="is-fullwidth button is-primary is-large"
-              value="Save and Submit" />
-          </div>
-        </form>
-      </div>
-
-      <div v-if="showEmailWarning" class="notification is-warning">
-        Please enter at least 2 email addresses :)
-      </div>
-      <div v-if="showPhoneWarning" class="notification is-warning">
-        Please enter a phone number :)
-      </div>
-      <div v-if="step == 3" class="step-3">
-        <div class="thanks">
-          <div>
-            <p> You're all signed in!</p>
-            <p> Please see the receptionist to pay your session fee.</p>
-          </div>
+          </form>
         </div>
-        <div>
-          <div class="title" style="font-family: Monotype Corsiva, Italianno, cursive; font-size: 2.5rem;">Greg Machen
-            Photography
+
+        <div v-if="showEmailWarning" class="notification is-warning">
+          Please enter at least 2 email addresses :)
+        </div>
+        <div v-if="showPhoneWarning" class="notification is-warning">
+          Please enter a phone number :)
+        </div>
+        <div v-if="step == 3" class="step-3">
+          <div class="thanks">
+            <div>
+              <p> You're all signed in!</p>
+              <p> Please see the receptionist to pay your session fee.</p>
+            </div>
+          </div>
+          <div>
+            <div class="title" style="font-family: Monotype Corsiva, Italianno, cursive; font-size: 2.5rem;">Greg Machen
+              Photography
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <script src="libs/vue.js"></script>
-  <script src="app2.js"></script>
+  <script src="app3.js"></script>
   <script src="libs/cleave.min.js"></script>
   <script src="libs/cleave-phone.us.js"></script>
 </body>

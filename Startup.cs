@@ -43,8 +43,8 @@ namespace lindsey
 
       app.UseHttpsRedirection();
       app.UseMvc();
-      app.UseStaticFiles();
       app.UseDefaultFiles();
+      app.UseStaticFiles();
     }
   }
 }

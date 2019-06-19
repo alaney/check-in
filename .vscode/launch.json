@@ -14,7 +14,7 @@
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
       "launchBrowser": {
-        "enabled": true
+        "enabled": true,
       },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
