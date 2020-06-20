@@ -78,12 +78,10 @@
                 <input id="phone2" class="input" type="tel" v-model="student.phone2" required>
               </div>
               <div class="emails">
-                <h2>Your email address</h2>
-                <input required type="email" class="input email" v-model="student.emails[0]">
-                <h2>Enter at least one parent's email address</h2>
-                <input required type="email" class="input email" v-model="student.emails[1]">
-                <input type="email" class="input email" v-model="student.emails[2]">
-                <input type="email" class="input email" v-model="student.emails[3]">
+                <h2>Primary Email</h2>
+                <input required type="email" class="input email" v-model="student.primaryEmail">
+                <h2>Secondary Email</h2>
+                <input required type="email" class="input email" v-model="student.secondaryEmail">
               </div>
               <div class="emails">
                 <label class="checkbox">

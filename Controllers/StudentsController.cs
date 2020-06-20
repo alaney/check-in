@@ -45,7 +45,7 @@ namespace lindsey.Controllers
     }
 
     [HttpPatch("{id}")]
-    public ActionResult Patch(int id, [FromBody]Student patchedStudent)
+    public ActionResult Patch(int id, [FromBody] Student patchedStudent)
     {
       try
       {
@@ -54,7 +54,8 @@ namespace lindsey.Controllers
         var header = file.First();
         var students = file.Skip(1).Select(l => Student.FromCsv(l)).ToList();
         var studentLine = students.FirstOrDefault(s => s.ClientId == id);
-        studentLine.Emails = patchedStudent.Emails.Select(e => e.Trim()).ToArray();
+        studentLine.PrimaryEmail = patchedStudent.PrimaryEmail.Trim();
+        studentLine.SecondaryEmail = patchedStudent.SecondaryEmail.Trim();
         studentLine.ParentFirstName = patchedStudent.ParentFirstName;
         studentLine.ParentLastName = patchedStudent.ParentLastName;
         if (string.IsNullOrWhiteSpace(studentLine.Password))
@@ -65,7 +66,7 @@ namespace lindsey.Controllers
           {
             pwd = patchedStudent.LastName + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10) + rand.Next(0, 10);
           }
-          studentLine.Password = pwd;
+          studentLine.Password = pwd.ToLower();
         }
         studentLine.Permission = patchedStudent.Permission;
         studentLine.Phone1 = patchedStudent.Phone1;
@@ -90,7 +91,8 @@ namespace lindsey.Controllers
     {
       try
       {
-        var students = System.IO.File.ReadAllLines(_path).Skip(1).Select(l => Student.FromCsv(l)).ToList();
+        var lines = System.IO.File.ReadAllLines(_path).Skip(1);
+        var students = lines.Select(l => Student.FromCsv(l)).ToList();
         var schools = students.Select(s => s.School).Distinct().OrderBy(a => a).Select(s => new School { Name = s }).ToList();
         var schoolSettings = new List<School>();
         config.GetSection("SchoolSettings").Bind(schoolSettings);

@@ -11,7 +11,9 @@ namespace lindsey.Models
     public string City { get; set; }
     public string State { get; set; }
     public string Zip { get; set; }
-    public string[] Emails { get; set; }
+    // public string[] Emails { get; set; }
+    public string PrimaryEmail { get; set; }
+    public string SecondaryEmail { get; set; }
     public string School { get; set; }
     public string ParentFirstName { get; set; }
     public string ParentLastName { get; set; }
@@ -32,15 +34,16 @@ namespace lindsey.Models
       studentValues.City = values[4];
       studentValues.State = values[5];
       studentValues.Zip = values[6];
-      studentValues.Emails = values[7].Split("; ");
-      studentValues.School = values[8];
-      studentValues.ParentFirstName = values[9];
-      studentValues.ParentLastName = values[10];
-      studentValues.Password = values[11];
-      studentValues.Permission = values[12] == "Y" || values[12] == "y" ? true : false;
-      studentValues.Phone1 = values[13];
-      studentValues.Phone2 = values[14];
-      studentValues.CheckInDate = values[15];
+      studentValues.PrimaryEmail = values[7];
+      studentValues.SecondaryEmail = values[8];
+      studentValues.School = values[9];
+      studentValues.ParentFirstName = values[10];
+      studentValues.ParentLastName = values[11];
+      studentValues.Password = values[12];
+      studentValues.Permission = values[13].ToUpper() == "Y" ? true : false;
+      studentValues.Phone1 = values[14];
+      studentValues.Phone2 = values[15];
+      studentValues.CheckInDate = values[16];
       return studentValues;
     }
 
@@ -54,7 +57,8 @@ namespace lindsey.Models
       studentCsv += $"{student.City},";
       studentCsv += $"{student.State},";
       studentCsv += $"{student.Zip},";
-      studentCsv += $"{String.Join("; ", student.Emails)},";
+      studentCsv += $"{student.PrimaryEmail},";
+      studentCsv += $"{student.SecondaryEmail},";
       studentCsv += $"{student.School},";
       studentCsv += $"{student.ParentFirstName},";
       studentCsv += $"{student.ParentLastName},";
